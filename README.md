@@ -3,32 +3,33 @@
 
 **Versión:** 1.0  
 **Estado:** Draft  
-**Fecha:** Mayo 2026  
+**Fecha:** Mayo 2026
+**Creado por:** Daniel Ruiz
 
 ---
 
 # 1. Objetivo
 
-Definir los estándares oficiales de organización, nomenclatura, segmentación y gobierno de datos para la arquitectura tipo Medallón del proyecto institucional de integración, consolidación y gestión de datos maestros (MDM).
+Definir los estándares oficiales de Traza, nomenclatura, segmentación y gobierno de datos para la arquitectura tipo Medallón del proyecto institucional de integración, consolidación y gestión de datos maestros (MDM).
 
 Este documento establece lineamientos para:
 
-- organización de schemas;
-- nomenclatura de datasets;
-- administración de capas Medallón;
-- estructuras técnicas operativas;
-- homologación de nombres;
-- control y gobernanza de datos.
+- Organización de schemas.
+- Nomenclatura de datasets.
+- Administración de capas Medallón.
+- Estructuras técnicas operativas.
+- Homologación de nombres.
+- Control y gobernanza de datos.
 
 El objetivo es garantizar:
 
-- consistencia;
-- escalabilidad;
-- trazabilidad;
-- interoperabilidad;
-- mantenibilidad;
-- calidad de datos;
-- alineación entre equipos técnicos y funcionales.
+- Consistencia.
+- Escalabilidad.
+- Trazabilidad.
+- Interoperabilidad.
+- Mantenibilidad.
+- Calidad de datos.
+- Alineación entre equipos técnicos y funcionales.
 
 ---
 
@@ -36,21 +37,21 @@ El objetivo es garantizar:
 
 Este estándar aplica para:
 
-- nuevas integraciones de datos;
-- procesos ETL/ELT;
-- pipelines;
-- cargas masivas;
-- datasets operativos;
-- entidades maestras;
-- procesos MDM;
-- ambientes analíticos;
-- datasets municipales y estatales.
+- Nuevas integraciones de datos.
+- Procesos ETL/ELT.
+- Pipelines.
+- Cargas masivas.
+- Datasets operativos.
+- Entidades maestras.
+- Procesos MDM.
+- Ambientes analíticos.
+- Datasets municipales y estatales.
 
 Aplica a todos los motores soportados por la organización:
 
-- PostgreSQL;
-- MySQL;
-- Oracle.
+- PostgreSQL
+- MySQL
+- Oracle
 
 ---
 
@@ -58,13 +59,13 @@ Aplica a todos los motores soportados por la organización:
 
 Este estándar toma como referencia buenas prácticas y lineamientos de:
 
-- ISO 8000 – Calidad de Datos;
-- ISO/IEC 11179 – Metadata Registries;
-- DAMA-DMBOK;
-- Arquitectura Medallón;
-- Data Governance Frameworks;
-- mejores prácticas SQL enterprise;
-- convenciones de Data Engineering modernas.
+- ISO 8000 – Calidad de Datos.
+- ISO/IEC 11179 – Metadata Registries.
+- DAMA-DMBOK.
+- Arquitectura Medallón.
+- Data Governance Frameworks.
+- Mejores prácticas SQL enterprise.
+- Convenciones de Data Engineering modernas.
 
 ---
 
@@ -72,13 +73,19 @@ Este estándar toma como referencia buenas prácticas y lineamientos de:
 
 La arquitectura Medallón organiza los datos por niveles de madurez y calidad.
 
+El modelo Medallion es una arquitectura de organización de datos que divide la información en capas progresivas de calidad y transformación: Bronze, Silver y Gold. Su objetivo es facilitar la ingestión, limpieza, estandarización y consumo de datos de forma controlada y escalable.
+
+- Bronze: Almacena datos crudos provenientes de los sistemas origen, conservando la información casi sin transformación.
+- Silver: Contiene datos depurados, normalizados y consolidados, listos para procesos de integración y análisis.
+- Gold: Concentra información de negocio altamente refinada y optimizada para consumo analítico, reportes, indicadores y aplicaciones.
+
 ## 4.1 Schemas Oficiales
 
 | Schema | Descripción |
 |---|---|
-| `brz` | Datos crudos provenientes de origen |
-| `slv` | Datos homologados y estandarizados |
-| `gld` | Datos consolidados y listos para consumo |
+| `bronze` | Datos crudos provenientes de origen |
+| `silver` | Datos homologados y estandarizados |
+| `gold` | Datos consolidados y listos para consumo |
 | `mdm` | Entidades maestras oficiales |
 | `ops` | Operación técnica, ETL y control |
 | `sandbox` | Exploración y pruebas controladas |
@@ -91,14 +98,14 @@ La arquitectura Medallón organiza los datos por niveles de madurez y calidad.
 
 Todos los objetos deberán cumplir obligatoriamente:
 
-- uso exclusivo de minúsculas;
-- uso obligatorio de `snake_case`;
-- separación mediante guion bajo `_`;
-- prohibido uso de espacios;
-- prohibido uso de acentos;
-- prohibido uso de caracteres especiales;
-- nombres compactos y descriptivos;
-- prohibido uso de sufijos manuales de versión.
+- Uso exclusivo de minúsculas.
+- Uso obligatorio de `snake_case`.
+- Separación mediante guion bajo `_`.
+- Prohibido uso de espacios.
+- Prohibido uso de acentos.
+- Prohibido uso de caracteres especiales.
+- Nombres compactos y descriptivos.
+- Prohibido uso de sufijos manuales de versión.
 
 ---
 
@@ -155,8 +162,17 @@ qroo_rpp_propiedades
 
 | Código | Descripción |
 |---|---|
+| `bac` | Bacalar |
+| `bju` | Benito Juárez |
+| `coz` | Cozumel |
 | `fcp` | Felipe Carrillo Puerto |
-
+| `imu` | Isla Mujeres |
+| `jmm` | José María Morelos |
+| `lca` | Lázaro Cárdenas |
+| `opb` | Othón P. Blanco |
+| `pmo` | Puerto Morelos |
+| `sol` | Solidaridad |
+| `tul` | Tulum |
 ---
 
 ## 7.3 Entidades
@@ -170,41 +186,41 @@ qroo_rpp_propiedades
 
 # 8. Convención de Schemas y Ejemplos
 
-## Bronze (`brz`)
+## Bronze (`bronze`)
 
 Datos ingestados sin transformación funcional.
 
 ### Ejemplos
 
 ```sql
-brz.qroo_fcp_cat_predios
-brz.qroo_rpp_propiedades
+bronze.qroo_fcp_cat_predios
+bronze.qroo_rpp_propiedades
 ```
 
 ---
 
-## Silver (`slv`)
+## Silver (`silver`)
 
 Datos homologados y normalizados.
 
 ### Ejemplos
 
 ```sql
-slv.qroo_fcp_cat_predios
-slv.qroo_rpp_propiedades
+silver.qroo_fcp_cat_predios
+silver.qroo_rpp_propiedades
 ```
 
 ---
 
-## Gold (`gld`)
+## Gold (`gold`)
 
 Datasets consolidados y orientados a consumo.
 
 ### Ejemplos
 
 ```sql
-gld.qroo_cat_indicadores
-gld.qroo_rpp_propiedades_consolidadas
+gold.qroo_cat_indicadores
+gold.qroo_rpp_propiedades_consolidadas
 ```
 
 ---
@@ -256,6 +272,8 @@ ops.log_carga_predios
 | `rec_` | reconciliación | validación origen-destino |
 | `his_` | histórico | históricos operativos |
 | `bkp_` | respaldo | respaldos temporales |
+| `mst_` | master | entidad maestra MDM|
+
 
 ---
 
